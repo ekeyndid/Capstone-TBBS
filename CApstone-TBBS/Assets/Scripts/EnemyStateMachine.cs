@@ -7,6 +7,8 @@ public class EnemyStateMachine : MonoBehaviour
 {
     public BaseEnemy enemy;
 
+    private BattleStateMachine BSM;
+
     public enum TurnState
     {
         PROCESSING,
@@ -25,6 +27,7 @@ public class EnemyStateMachine : MonoBehaviour
     void Start()
     {
         currentState = TurnState.PROCESSING;
+        BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMachine>();
     }
 
     // Update is called once per frame
