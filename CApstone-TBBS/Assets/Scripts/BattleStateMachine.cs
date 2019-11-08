@@ -40,4 +40,9 @@ public class BattleStateMachine : MonoBehaviour
     }
 
     }
+
+   public void CollectAction(HandleTurns input)
+    {
+        PreformList.Add(input);
+    }
 }
