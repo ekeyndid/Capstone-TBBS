@@ -29,12 +29,28 @@ public class BattleStateMachine : MonoBehaviour
         switch (currentAction)
         {
             case (PreformAction.WAIT):
-            
+                if (PreformList.Count > 0)
+                {
+                    currentAction = PreformAction.TAKEACTION;
+                }
         break;
 
             case (PreformAction.TAKEACTION):
-                break;
+                GameObject preformer = GameObject.Find(PreformList[0].Attacker);
+                if(PreformList[0].Type == "Enemy")
+                {
+                    EnemyStateMachine ESM = preformer.GetComponent<EnemyStateMachine>();
+                    ESM.ProtagToAttack = PreformList[0].AttackersTarget;
+                    ESM.currentState = EnemyStateMachine.TurnState.ACTION;
+                }
 
+                if (PreformList[0].Type == "Protag")
+                {
+
+                }
+                currentAction = PreformAction.PREFORMACTION;
+                
+                break;
             case (PreformAction.PREFORMACTION):
         break;
     }
