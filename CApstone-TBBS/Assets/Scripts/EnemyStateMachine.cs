@@ -20,13 +20,13 @@ public class EnemyStateMachine : MonoBehaviour
     public TurnState currentState;
     //for the ProgressBar
     private float cur_cooldown = 0f;
-    private float max_cooldown = 5f;
+    private float max_cooldown = 10f;
     
     private Vector3 startposition;
     // the things for TimeForAction
     private bool ActionStarted = false;
     public GameObject ProtagToAttack;
-    private float animSpeed = 5f;
+    private float animSpeed = 10f;
     
     void Start()
     {
@@ -83,6 +83,7 @@ public class EnemyStateMachine : MonoBehaviour
         {
             yield break;
         }
+        
         ActionStarted = true;
 
         //animate the enemy near the hero to attack
@@ -101,10 +102,13 @@ public class EnemyStateMachine : MonoBehaviour
         BSM.PreformList.RemoveAt(0);
         //restart BSM --> WAIT
         BSM.currentAction = BattleStateMachine.PreformAction.WAIT;
+        //end courtine
         ActionStarted = false;
         //reset this enemy's state
         cur_cooldown = 0f;
         currentState = TurnState.PROCESSING;
+
+       
     }
 
     private bool MoveTowardsEnemy(Vector3 target)
