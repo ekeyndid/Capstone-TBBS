@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hammer : MonoBehaviour
+public class Hammer : BaseAttack
 {
-    // Start is called before the first frame update
-    void Start()
+    public Hammer()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        AttackName = "Hammer Swing";
+        AttackDesc = "A Hammer Swing with a large hammer, axe, or mallet.";
+        ManaCost = 0;
+        Damage = 15.0f;
     }
 }

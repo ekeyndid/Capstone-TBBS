@@ -10,6 +10,7 @@ public class HandleTurns
     public string Type;
     public GameObject AttackersGameObject;//who attacks
     public GameObject AttackersTarget;//who is going to be attacked
+    public BaseAttack ChooseAttack;
 
     //which attack is preformed
 }
