@@ -21,7 +21,7 @@ public class EnemyStateMachine : MonoBehaviour
     //for the ProgressBar
     private float cur_cooldown = 0f;
     private float max_cooldown = 10f;
-    
+    public GameObject Selector;
     private Vector3 startposition;
     // the things for TimeForAction
     private bool ActionStarted = false;
@@ -32,6 +32,7 @@ public class EnemyStateMachine : MonoBehaviour
     {
         currentState = TurnState.PROCESSING;
         BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMachine>();
+        Selector.SetActive(false);
         startposition = transform.position;
     }
 
