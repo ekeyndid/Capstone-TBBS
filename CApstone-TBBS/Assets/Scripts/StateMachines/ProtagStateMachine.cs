@@ -30,6 +30,7 @@ public class ProtagStateMachine : MonoBehaviour
     private bool ActionStarted = false;
     private Vector3 startposition;
     private float animSpeed = 10f;
+    private bool alive = true;
 
 
     void Start()
@@ -61,6 +62,39 @@ public class ProtagStateMachine : MonoBehaviour
                 StartCoroutine(TimeForAction());
                 break;
             case (TurnState.DEAD):
+                if (!alive)
+                {
+                    return;
+                }
+                else
+                {
+                    //change tag of protags
+                    this.gameObject.tag = "DeadProtag";
+                     //not attackable by any enemy
+                    BSM.ProtagsInBattle.Remove(this.gameObject);
+                    //not managable
+                    BSM.ProtagsToManage.Remove(this.gameObject);
+                    // deactivate the selector
+                    Selector.SetActive(false);
+                    //reset GUI
+                    BSM.AttackPanel.SetActive(false);
+                    BSM.EnemySelectPanel.SetActive(false);
+                    //remove item from preform list
+                    for(int i = 0; i < BSM.PreformList.Count; i++)
+                    {
+                        if(BSM.PreformList[i].AttackersGameObject == this.gameObject)
+                        {
+                            BSM.PreformList.Remove(BSM.PreformList[i]);
+                        }
+                    }
+                    //change color / play animation
+                    this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
+                    //reset protaginput
+                    BSM.ProtagInput = BattleStateMachine.ProtagGUI.ACTIVATE;
+
+                    alive = false;
+                }
+
                 break;
         }
     }
