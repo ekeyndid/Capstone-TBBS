@@ -70,8 +70,23 @@ public class BattleStateMachine : MonoBehaviour
                 if(PreformList[0].Type == "Enemy")
                 {
                     EnemyStateMachine ESM = preformer.GetComponent<EnemyStateMachine>();
-                    ESM.ProtagToAttack = PreformList[0].AttackersTarget;
-                    ESM.currentState = EnemyStateMachine.TurnState.ACTION;
+                    for(int i = 0; i < ProtagsInBattle.Count; i++)
+                    {
+                        if(PreformList[0].AttackersTarget == ProtagsInBattle[i])
+                        {
+                            ESM.ProtagToAttack = PreformList[0].AttackersTarget;
+                            ESM.currentState = EnemyStateMachine.TurnState.ACTION;
+                            break;
+                        }
+                        else
+                        {
+                            PreformList[0].AttackersTarget = ProtagsInBattle[Random.Range(0, ProtagsInBattle.Count)];
+
+                            ESM.ProtagToAttack = PreformList[0].AttackersTarget;
+                            ESM.currentState = EnemyStateMachine.TurnState.ACTION;
+                        }
+                    }
+
                 }
 
                 if (PreformList[0].Type == "Protag")
