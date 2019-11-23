@@ -75,6 +75,10 @@ public class EnemyStateMachine : MonoBehaviour
         myAttack.Type = "Enemy";
         myAttack.AttackersGameObject = this.gameObject;
         myAttack.AttackersTarget = BSM.ProtagsInBattle[Random.Range(0, BSM.ProtagsInBattle.Count)];
+        int rand = Random.Range(0, enemy.MeleeAttacks.Count);
+        myAttack.ChooseAttack = enemy.MeleeAttacks[rand];
+        Debug.Log(this.gameObject + " used " + myAttack.ChooseAttack.AttackName + " for " + (myAttack.ChooseAttack.Damage+enemy.currATK) + " dmg!");
+
         BSM.CollectAction(myAttack);
     }
 
@@ -93,7 +97,7 @@ public class EnemyStateMachine : MonoBehaviour
         //wait a bit
         yield return new WaitForSeconds(0.5f);
         //do damnage
-
+        DoDamage();
         //animate back to startpositiom
         Vector3 FirstPosition = startposition;
         while (MoveTowardsStart(FirstPosition)) { yield return null; }
@@ -119,5 +123,13 @@ public class EnemyStateMachine : MonoBehaviour
     private bool MoveTowardsStart(Vector3 target)
     {
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
+    }
+
+
+    void DoDamage()
+    {
+        float calc_dmg;
+        calc_dmg = enemy.currATK + BSM.PreformList[0].ChooseAttack.Damage;
+        ProtagToAttack.GetComponent<ProtagStateMachine>().TakeDamage(calc_dmg);
     }
 }

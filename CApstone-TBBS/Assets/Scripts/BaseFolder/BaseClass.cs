@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Collections.Generic;
 public class BaseClass{
     public string thename;
 
@@ -16,5 +16,7 @@ public class BaseClass{
 
     public float baseDEF;
     public float currDEF;
+
+    public List<BaseAttack> MeleeAttacks = new List<BaseAttack>();
 
 }

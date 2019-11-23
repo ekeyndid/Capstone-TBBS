@@ -23,6 +23,7 @@ public class ProtagStateMachine : MonoBehaviour
     private float cur_cooldown = 0f;
     private float max_cooldown = 5f;
     public Image ProgressBar;
+    public Color ProgColor;
     public GameObject Selector;
     //IeNumerator
     public GameObject EnemyToAttack;
@@ -33,6 +34,7 @@ public class ProtagStateMachine : MonoBehaviour
 
     void Start()
     {
+        ProgColor = ProgressBar.color;
         startposition = transform.position;
         cur_cooldown = Random.Range(0, 2.5f);
         Selector.SetActive(false);
@@ -65,11 +67,13 @@ public class ProtagStateMachine : MonoBehaviour
 
     void UpgradeProgressBar()
     {
+        ProgressBar.color = ProgColor;
         cur_cooldown = cur_cooldown + Time.deltaTime;
         float calc_cooldown = cur_cooldown / max_cooldown;
         ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calc_cooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
         if(cur_cooldown >= max_cooldown)
         {
+            ProgressBar.color = new Color32(200,200,0,255);
             currentState = TurnState.ADDTOLIST;
         }
     }
@@ -116,5 +120,16 @@ public class ProtagStateMachine : MonoBehaviour
     private bool MoveTowardsStart(Vector3 target)
     {
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, animSpeed * Time.deltaTime));
+    }
+
+    public void TakeDamage(float DamageA)
+    {
+        float calc_dmg = DamageA - protag.currDEF;
+        print(calc_dmg);
+        if (calc_dmg < 0) { calc_dmg = 0; };
+        protag.currHP -= calc_dmg;
+        if (protag.currHP <= 0) { currentState = TurnState.DEAD; };
+        
+        
     }
 }

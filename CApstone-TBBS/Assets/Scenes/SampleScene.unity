@@ -1685,7 +1685,7 @@ PrefabInstance:
     - target: {fileID: 4174726297364519692, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf, type: 3}
@@ -2520,6 +2520,51 @@ PrefabInstance:
       propertyPath: Selector
       value: 
       objectReference: {fileID: 1080875893}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.thename
+      value: Enemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.baseHP
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.currHP
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.baseMP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.currMP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.baseATK
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.currATK
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.baseDEF
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063910279096253346, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
+        type: 3}
+      propertyPath: enemy.currDEF
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3815288844337150012, guid: 8309c5d5dd43ea34a8f2d0cd4e4092cf,
         type: 3}
       propertyPath: m_IsActive
