@@ -162,7 +162,10 @@ public class ProtagStateMachine : MonoBehaviour
         print(calc_dmg);
         if (calc_dmg < 0) { calc_dmg = 0; };
         protag.currHP -= calc_dmg;
-        if (protag.currHP <= 0) { currentState = TurnState.DEAD; };
+        if (protag.currHP <= 0) {
+            currentState = TurnState.DEAD;
+            protag.currHP = 0;   
+        };
         
         
     }
