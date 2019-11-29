@@ -22,7 +22,7 @@ public class ProtagStateMachine : MonoBehaviour
     //for the ProgressBar
     private float cur_cooldown = 0f;
     private float max_cooldown = 5f;
-    public Image ProgressBar;
+    private Image ProgressBar;
     public Color ProgColor;
     public GameObject Selector;
     //IeNumerator
@@ -32,9 +32,19 @@ public class ProtagStateMachine : MonoBehaviour
     private float animSpeed = 10f;
     private bool alive = true;
 
+    private ProtagPanelStats stats;
+    public GameObject ProtagPanel;
+    private Transform ProtagPanelSpacer;
+
 
     void Start()
     {
+        // find spacer
+        ProtagPanelSpacer = GameObject.Find("BattleCanvas").transform.Find("ProtagPanel").transform.Find("ProtagPanelSpacer");
+       
+        //create panel, fill in info
+        CreateProtagPanel();
+       
         ProgColor = ProgressBar.color;
         startposition = transform.position;
         cur_cooldown = Random.Range(0, 2.5f);
@@ -166,7 +176,26 @@ public class ProtagStateMachine : MonoBehaviour
             currentState = TurnState.DEAD;
             protag.currHP = 0;   
         };
+        UpdateProtagPanel();
         
-        
+    }
+//create a panel for player
+    void CreateProtagPanel()
+    {
+        ProtagPanel = Instantiate(ProtagPanel) as GameObject;
+        stats = ProtagPanel.GetComponent<ProtagPanelStats>();
+        stats.ProtagName.text = protag.thename;
+        stats.ProtagHP.text = "HP: " + protag.currHP;
+        stats.ProtagMP.text = "MP: " + protag.currMP;
+
+
+        ProgressBar = stats.ProgressBar;
+        ProtagPanel.transform.SetParent(ProtagPanelSpacer, false);
+    }
+
+    void UpdateProtagPanel()
+    {
+        stats.ProtagHP.text = "HP: " + protag.currHP;
+        stats.ProtagMP.text = "MP: " + protag.currMP;
     }
 }
