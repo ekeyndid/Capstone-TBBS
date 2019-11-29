@@ -48,6 +48,7 @@ public class ProtagStateMachine : MonoBehaviour
         ProgColor = ProgressBar.color;
         startposition = transform.position;
         cur_cooldown = Random.Range(0, 2.5f);
+        
         Selector.SetActive(false);
         currentState = TurnState.PROCESSING;
         BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMachine>();
@@ -112,7 +113,11 @@ public class ProtagStateMachine : MonoBehaviour
     void UpgradeProgressBar()
     {
         ProgressBar.color = ProgColor;
-        cur_cooldown = cur_cooldown + Time.deltaTime;
+        print(Time.deltaTime);
+        float Modifier = protag.agility / 15;
+        float Timeo = Time.deltaTime;
+        cur_cooldown = cur_cooldown + (Timeo * Modifier);
+        print(cur_cooldown + " of "+ protag.thename);
         float calc_cooldown = cur_cooldown / max_cooldown;
         ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calc_cooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
         if(cur_cooldown >= max_cooldown)

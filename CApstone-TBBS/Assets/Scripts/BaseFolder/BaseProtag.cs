@@ -6,8 +6,8 @@ using UnityEngine;
 public class BaseProtag: BaseClass
 {
 
-    public int stamina;
-    public int intellect;
-    public int dexterity;
-    public int agility;
+    public float stamina;
+    public float intellect;
+    public float dexterity;
+    public float agility;
 }
