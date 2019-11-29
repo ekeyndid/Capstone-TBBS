@@ -33,10 +33,17 @@ public class BattleStateMachine : MonoBehaviour
     private HandleTurns ProtagChoice;
 
     public GameObject enemyButton;
-    public Transform Spacer;
+    public Transform EnemySelectSpacer;
+    public Transform AttackSpacer;
+    public Transform MagicSpacer;
 
     public GameObject AttackPanel;
     public GameObject EnemySelectPanel;
+    public GameObject MagicPanel;
+    public GameObject actionbutton;
+    private List<GameObject> Buttons;
+
+
 
 
     void Start()
@@ -149,7 +156,7 @@ public class BattleStateMachine : MonoBehaviour
 
             button.EnemyPrefab = enemy;
 
-            newButton.transform.SetParent(Spacer,false);
+            newButton.transform.SetParent(EnemySelectSpacer,false);
                 
         }
     }
