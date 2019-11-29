@@ -41,7 +41,7 @@ public class BattleStateMachine : MonoBehaviour
     public GameObject EnemySelectPanel;
     public GameObject MagicPanel;
     public GameObject actionbutton;
-    private List<GameObject> Buttons;
+    private List<GameObject> Buttons = new List<GameObject>();
 
 
 
@@ -56,6 +56,8 @@ public class BattleStateMachine : MonoBehaviour
 
         AttackPanel.SetActive(false);
         EnemySelectPanel.SetActive(false);
+        MagicPanel.SetActive(false);
+
         
         EnemyButtons();
     }
@@ -121,6 +123,7 @@ public class BattleStateMachine : MonoBehaviour
                     
 
                     AttackPanel.SetActive(true);
+                    CreateAttackButtons();
                     ProtagInput = ProtagGUI.WAITING;
                 }
                     break;
@@ -181,8 +184,33 @@ public class BattleStateMachine : MonoBehaviour
     {
         PreformList.Add(ProtagChoice);
         EnemySelectPanel.SetActive(false);
+        foreach(GameObject actionbutton in Buttons)
+        {
+            Destroy(actionbutton);
+        }
+        Buttons.Clear();
         ProtagsToManage[0].transform.Find("Selector").gameObject.SetActive(false);
         ProtagsToManage.RemoveAt(0);
         ProtagInput = ProtagGUI.ACTIVATE;
+
+    }
+    
+    
+    void CreateAttackButtons()
+    {
+        GameObject AttackButton = Instantiate(actionbutton) as GameObject;
+        Text AttackButtonText = AttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
+        AttackButtonText.text = "Attack";
+        AttackButton.GetComponent<Button>().onClick.AddListener(()=>Input1());
+        AttackButton.transform.SetParent(AttackSpacer, false);
+        Buttons.Add(AttackButton);
+
+
+        GameObject MagicAttackButton = Instantiate(actionbutton) as GameObject;
+        Text MagicButtonText = MagicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
+        MagicButtonText.text = "Magic";
+        //magic panel shit here
+        MagicAttackButton.transform.SetParent(AttackSpacer, false);
+        Buttons.Add(MagicAttackButton);
     }
 }
