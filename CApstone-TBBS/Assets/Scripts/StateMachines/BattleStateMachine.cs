@@ -41,6 +41,7 @@ public class BattleStateMachine : MonoBehaviour
     public GameObject EnemySelectPanel;
     public GameObject MagicPanel;
     public GameObject actionbutton;
+    public GameObject magicbutton;
     private List<GameObject> Buttons = new List<GameObject>();
 
 
@@ -207,10 +208,45 @@ public class BattleStateMachine : MonoBehaviour
 
 
         GameObject MagicAttackButton = Instantiate(actionbutton) as GameObject;
-        Text MagicButtonText = MagicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
-        MagicButtonText.text = "Magic";
+        Text MagicAttackButtonText = MagicAttackButton.transform.Find("Text").gameObject.GetComponent<Text>();
+        MagicAttackButtonText.text = "Magic";
+        MagicAttackButton.GetComponent<Button>().onClick.AddListener(() => Input3());
         //magic panel shit here
         MagicAttackButton.transform.SetParent(AttackSpacer, false);
         Buttons.Add(MagicAttackButton);
+
+        if(ProtagsToManage[0].GetComponent<ProtagStateMachine>().protag.MagicAttacks.Count > 0)
+        {
+            foreach(BaseAttack magicAtk in ProtagsToManage[0].GetComponent<ProtagStateMachine>().protag.MagicAttacks)
+            {
+                GameObject MagicButton = Instantiate(magicbutton) as GameObject;
+                Text MagicButtonText = MagicButton.transform.Find("Text").gameObject.GetComponent<Text>();
+                MagicButtonText.text = magicAtk.AttackName;
+                AttackButton ATB = MagicButton.GetComponent<AttackButton>();
+                ATB.magicAttackToPreform = magicAtk;
+                MagicButton.transform.SetParent(MagicSpacer, false);
+                Buttons.Add(MagicButton);
+            }
+        }
+        else
+        {
+            MagicAttackButton.GetComponent<Button>().interactable = false;
+        }
+    }
+    public void Input4(BaseAttack choosenMagic) // chosen magic attack
+    {
+        ProtagChoice.Attacker = ProtagsToManage[0].name;
+        ProtagChoice.AttackersGameObject = ProtagsToManage[0];
+        ProtagChoice.Type = "Protag";
+
+        ProtagChoice.ChooseAttack = choosenMagic;
+        MagicPanel.SetActive(false);
+        EnemySelectPanel.SetActive(true);
+    }
+
+    public void Input3() //switching to magic attacks
+    {
+        AttackPanel.SetActive(false);
+        MagicPanel.SetActive(true);
     }
 }

@@ -10,4 +10,6 @@ public class BaseProtag: BaseClass
     public float intellect;
     public float dexterity;
     public float agility;
+
+    public List<BaseAttack> MagicAttacks = new List<BaseAttack>();
 }
