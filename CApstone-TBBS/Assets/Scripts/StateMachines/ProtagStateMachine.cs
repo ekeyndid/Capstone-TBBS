@@ -101,7 +101,7 @@ public class ProtagStateMachine : MonoBehaviour
                     //change color / play animation
                     this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
                     //reset protaginput
-                    BSM.ProtagInput = BattleStateMachine.ProtagGUI.ACTIVATE;
+                    BSM.currentAction = BattleStateMachine.PreformAction.CHECKALIVE;
 
                     alive = false;
                 }

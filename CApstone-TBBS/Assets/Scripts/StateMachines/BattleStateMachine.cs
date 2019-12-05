@@ -8,7 +8,10 @@ public class BattleStateMachine : MonoBehaviour
     {
         WAIT,
         TAKEACTION,
-        PREFORMACTION
+        PREFORMACTION,
+        CHECKALIVE,
+        WIN,
+        LOSE
     }
 
 
@@ -112,6 +115,34 @@ public class BattleStateMachine : MonoBehaviour
             case (PreformAction.PREFORMACTION):
                 //idle
         break;
+                case (PreformAction.CHECKALIVE):
+                if(ProtagsInBattle.Count < 1)
+                {
+                    currentAction = PreformAction.LOSE;
+                }
+               else if(EnemiesInBattle.Count < 1)
+                {
+                    currentAction = PreformAction.WIN;
+                }
+                else
+                {
+                    clearAttackPanel();
+                    ProtagInput = ProtagGUI.ACTIVATE;
+                }
+
+                break;
+
+            case (PreformAction.LOSE):
+            {
+
+            }
+               break;
+            
+            case (PreformAction.WIN):
+                {
+
+                }
+                break;
         }
 
         switch (ProtagInput)
@@ -184,19 +215,29 @@ public class BattleStateMachine : MonoBehaviour
     void ProtagInputDone()
     {
         PreformList.Add(ProtagChoice);
-        EnemySelectPanel.SetActive(false);
-        foreach(GameObject actionbutton in Buttons)
-        {
-            Destroy(actionbutton);
-        }
-        Buttons.Clear();
+        // getting rid of panel
+        clearAttackPanel();
+
         ProtagsToManage[0].transform.Find("Selector").gameObject.SetActive(false);
         ProtagsToManage.RemoveAt(0);
         ProtagInput = ProtagGUI.ACTIVATE;
 
     }
-    
-    
+
+    void clearAttackPanel()
+    {
+        EnemySelectPanel.SetActive(false);
+        AttackPanel.SetActive(false);
+        MagicPanel.SetActive(false);
+
+        foreach (GameObject actionbutton in Buttons)
+        {
+            Destroy(actionbutton);
+        }
+        Buttons.Clear();
+    }
+
+
     void CreateAttackButtons()
     {
         GameObject AttackButton = Instantiate(actionbutton) as GameObject;
