@@ -10,5 +10,6 @@ public class Hammer : BaseAttack
         AttackDesc = "A Hammer Swing with a large hammer, axe, or mallet.";
         ManaCost = 0;
         Damage = 15.0f;
+        ismagic = false;
     }
 }

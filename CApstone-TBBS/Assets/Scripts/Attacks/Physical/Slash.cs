@@ -10,5 +10,6 @@ public class Slash : BaseAttack
         AttackDesc = "A basic slash with a sword, dagger, or alike weapon.";
         ManaCost = 0.0f;
         Damage = 10.0f;
+        ismagic = false;
     }
 }

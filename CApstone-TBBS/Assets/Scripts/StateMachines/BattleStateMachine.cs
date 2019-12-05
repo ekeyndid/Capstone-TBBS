@@ -170,7 +170,7 @@ public class BattleStateMachine : MonoBehaviour
         ProtagChoice.Attacker = ProtagsToManage[0].name;
         ProtagChoice.AttackersGameObject = ProtagsToManage[0];
         ProtagChoice.Type = "Protag";
-
+        ProtagChoice.ChooseAttack = ProtagsToManage[0].GetComponent<ProtagStateMachine>().protag.MeleeAttacks[0];
         AttackPanel.SetActive(false);
         EnemySelectPanel.SetActive(true);
     }

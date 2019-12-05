@@ -136,13 +136,25 @@ public class ProtagStateMachine : MonoBehaviour
         }
 
         ActionStarted = true;
-
+        if (BSM.PreformList[0].ChooseAttack.ismagic)
+        {
+            yield return new WaitForSeconds(0.5f);
+            Vector3 EnemyPosition = new Vector3(transform.position.x - 1.5f, transform.position.y, transform.position.z);
+            while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
+            //wait a bit
+            yield return new WaitForSeconds(0.5f);
+            DoDamage();
+        }
+        else if (!BSM.PreformList[0].ChooseAttack.ismagic)
+        {
+            Vector3 EnemyPosition = new Vector3(EnemyToAttack.transform.position.x + 1.5f, EnemyToAttack.transform.position.y, EnemyToAttack.transform.position.z);
+            while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
+            //wait a bit
+            yield return new WaitForSeconds(0.5f);
+            DoDamage();
+        }
         //animate the enemy near the hero to attack
-        Vector3 EnemyPosition = new Vector3(EnemyToAttack.transform.position.x + 1.5f, EnemyToAttack.transform.position.y, EnemyToAttack.transform.position.z);
-        while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
-        //wait a bit
-        yield return new WaitForSeconds(0.5f);
-        //do damnage
+       
 
         //animate back to startpositiom
         Vector3 FirstPosition = startposition;
@@ -183,6 +195,15 @@ public class ProtagStateMachine : MonoBehaviour
         };
         UpdateProtagPanel();
         
+    }
+
+    void DoDamage()
+    {
+        float calc_dmg = protag.currATK + BSM.PreformList[0].ChooseAttack.Damage;
+        EnemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_dmg);
+
+
+
     }
 //create a panel for player
     void CreateProtagPanel()

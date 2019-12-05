@@ -132,4 +132,19 @@ public class EnemyStateMachine : MonoBehaviour
         calc_dmg = enemy.currATK + BSM.PreformList[0].ChooseAttack.Damage;
         ProtagToAttack.GetComponent<ProtagStateMachine>().TakeDamage(calc_dmg);
     }
+
+    public void TakeDamage(float DamageA)
+    {
+        float calc_dmg = DamageA - enemy.currDEF;
+        print(calc_dmg);
+        if (calc_dmg < 0) { calc_dmg = 0; };
+        enemy.currHP -= calc_dmg;
+        if (enemy.currHP <= 0)
+        {
+            currentState = TurnState.DEAD;
+            enemy.currHP = 0;
+        };
+        
+
+    }
 }

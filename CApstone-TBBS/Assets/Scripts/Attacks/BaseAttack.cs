@@ -9,5 +9,5 @@ public class BaseAttack: MonoBehaviour
     public string AttackDesc;
     public float Damage;
     public float ManaCost; //if spell
-
+    public bool ismagic;
 }

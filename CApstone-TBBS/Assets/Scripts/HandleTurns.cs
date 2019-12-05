@@ -11,6 +11,7 @@ public class HandleTurns
     public GameObject AttackersGameObject;//who attacks
     public GameObject AttackersTarget;//who is going to be attacked
     public BaseAttack ChooseAttack;
+//public bool ismagic;
 
     //which attack is preformed
 }
