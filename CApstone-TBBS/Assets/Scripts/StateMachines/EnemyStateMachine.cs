@@ -27,6 +27,8 @@ public class EnemyStateMachine : MonoBehaviour
     private bool ActionStarted = false;
     public GameObject ProtagToAttack;
     private float animSpeed = 10f;
+
+    private bool IsAlive = true;
     
     void Start()
     {
@@ -54,6 +56,26 @@ public class EnemyStateMachine : MonoBehaviour
                 StartCoroutine(TimeForAction());
                 break;
             case (TurnState.DEAD):
+                if (!IsAlive)
+                {
+                    return;
+                }
+                else
+                {
+                    this.gameObject.tag = "DeadEnemy";
+                    BSM.EnemiesInBattle.Remove(this.gameObject);
+                    Selector.SetActive(false);
+
+                    for(int i = 0; i < BSM.PreformList.Count; i++)
+                    {
+                        if(BSM.PreformList[i].AttackersGameObject == this.gameObject)
+                        {
+                            BSM.PreformList.Remove(BSM.PreformList[i]);
+                        }
+                        this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
+                        IsAlive = false;
+                    }
+                }
                 break;
         }
     }
