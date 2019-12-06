@@ -164,13 +164,19 @@ public class ProtagStateMachine : MonoBehaviour
         //remove this preformer from the list in BSM
         BSM.PreformList.RemoveAt(0);
         //restart BSM --> WAIT
-        BSM.currentAction = BattleStateMachine.PreformAction.WAIT;
-        //end courtine
-        ActionStarted = false;
-        //reset this enemy's state
-        cur_cooldown = 0f;
-        currentState = TurnState.PROCESSING;
-
+        if (BSM.currentAction != BattleStateMachine.PreformAction.WIN && BSM.currentAction != BattleStateMachine.PreformAction.LOSE)
+        {
+            BSM.currentAction = BattleStateMachine.PreformAction.WAIT;
+            //end courtine
+            ActionStarted = false;
+            //reset this enemy's state
+            cur_cooldown = 0f;
+            currentState = TurnState.PROCESSING;
+        }
+        else
+        {
+            currentState = TurnState.WAITING;
+        }
 
     }
 

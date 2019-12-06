@@ -135,12 +135,17 @@ public class BattleStateMachine : MonoBehaviour
 
             case (PreformAction.LOSE):
             {
-
+                    Debug.Log("You lost the Battle!");
             }
                break;
             
             case (PreformAction.WIN):
                 {
+                    Debug.Log("You won the Battle!");
+                    for(int i = 0; i< ProtagsInBattle.Count; i++)
+                    {
+                        ProtagsInBattle[i].GetComponent<ProtagStateMachine>().currentState = ProtagStateMachine.TurnState.WAITING;
+                    }
 
                 }
                 break;
@@ -177,8 +182,16 @@ public class BattleStateMachine : MonoBehaviour
         PreformList.Add(input);
     }
 
-    void EnemyButtons()
+    public void EnemyButtons()
     {
+      //cleanup
+      foreach(GameObject EButton in EButtons)
+        {
+            Destroy(EButton);
+        }
+        EButtons.Clear();
+        //create buttons
+        
         foreach(GameObject enemy in EnemiesInBattle)
         {
             GameObject newButton = Instantiate(enemyButton) as GameObject;
@@ -193,6 +206,7 @@ public class BattleStateMachine : MonoBehaviour
             button.EnemyPrefab = enemy;
 
             newButton.transform.SetParent(EnemySelectSpacer,false);
+            EButtons.Add(newButton);
                 
         }
     }

@@ -74,6 +74,10 @@ public class EnemyStateMachine : MonoBehaviour
                         }
                         this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
                         IsAlive = false;
+                        // reset enemy buttons
+                        BSM.EnemyButtons();
+                        // check Alive
+                        BSM.currentAction = BattleStateMachine.PreformAction.CHECKALIVE;
                     }
                 }
                 break;
