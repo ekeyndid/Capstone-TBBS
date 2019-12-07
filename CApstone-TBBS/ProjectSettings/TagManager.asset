@@ -7,6 +7,7 @@ TagManager:
   - Protag
   - Enemy
   - DeadEnemy
+  - DeadProtag
   layers:
   - Default
   - TransparentFX
