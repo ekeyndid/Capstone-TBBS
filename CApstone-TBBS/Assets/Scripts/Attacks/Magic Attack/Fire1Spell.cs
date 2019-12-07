@@ -9,7 +9,7 @@ public Fire1Spell()
         AttackName = "Fire";
         AttackDesc = "Basic Fire Spell which burns enemy";
         Damage = 20f;
-        ManaCost = 10f;
+        ManaCost = 4f;
         ismagic = true;
     }
 }

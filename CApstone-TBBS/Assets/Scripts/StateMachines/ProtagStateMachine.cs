@@ -31,7 +31,7 @@ public class ProtagStateMachine : MonoBehaviour
     private Vector3 startposition;
     private float animSpeed = 10f;
     private bool alive = true;
-
+    private Text MagicT;
     private ProtagPanelStats stats;
     public GameObject ProtagPanel;
     private Transform ProtagPanelSpacer;
@@ -52,6 +52,7 @@ public class ProtagStateMachine : MonoBehaviour
         Selector.SetActive(false);
         currentState = TurnState.PROCESSING;
         BSM = GameObject.Find("BattleManager").GetComponent<BattleStateMachine>();
+        MagicT = BSM.MagicName.transform.Find("T").gameObject.GetComponent<Text>();
     }
 
     void Update()
@@ -91,13 +92,22 @@ public class ProtagStateMachine : MonoBehaviour
                     BSM.AttackPanel.SetActive(false);
                     BSM.EnemySelectPanel.SetActive(false);
                     //remove item from preform list
-                    for(int i = 0; i < BSM.PreformList.Count; i++)
+                    if(BSM.ProtagsInBattle.Count > 0)
                     {
-                        if(BSM.PreformList[i].AttackersGameObject == this.gameObject)
+                        for (int i = 0; i < BSM.PreformList.Count; i++)
                         {
-                            BSM.PreformList.Remove(BSM.PreformList[i]);
+                            if (BSM.PreformList[i].AttackersGameObject == this.gameObject)
+                            {
+                                BSM.PreformList.Remove(BSM.PreformList[i]);
+                            }
+
+                            if (BSM.PreformList[i].AttackersTarget == this.gameObject)
+                            {
+                                BSM.PreformList[i].AttackersTarget = BSM.ProtagsInBattle[Random.Range(0, BSM.ProtagsInBattle.Count)];
+                            }
                         }
                     }
+                   
                     //change color / play animation
                     this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
                     //reset protaginput
@@ -138,12 +148,28 @@ public class ProtagStateMachine : MonoBehaviour
         ActionStarted = true;
         if (BSM.PreformList[0].ChooseAttack.ismagic)
         {
-            yield return new WaitForSeconds(0.5f);
-            Vector3 EnemyPosition = new Vector3(transform.position.x - 1.5f, transform.position.y, transform.position.z);
-            while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
-            //wait a bit
-            yield return new WaitForSeconds(0.5f);
-            DoDamage();
+            if(protag.currMP >= BSM.PreformList[0].ChooseAttack.ManaCost)
+            {
+                protag.currMP = protag.currMP - BSM.PreformList[0].ChooseAttack.ManaCost;
+                UpdateProtagPanel();
+                MagicT.text = BSM.PreformList[0].ChooseAttack.AttackName;
+                BSM.MagicName.gameObject.SetActive(true);
+                yield return new WaitForSeconds(1f);
+                Vector3 EnemyPosition = new Vector3(transform.position.x - 1.5f, transform.position.y, transform.position.z);
+                while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
+                //wait a bit
+                yield return new WaitForSeconds(0.5f);
+                DoDamage();
+                BSM.MagicName.gameObject.SetActive(false);
+            }
+            else
+            {
+                MagicT.text = "Not Enough Mana!";
+                BSM.MagicName.gameObject.SetActive(true);
+                yield return new WaitForSeconds(1.5f);
+                BSM.MagicName.gameObject.SetActive(false);
+            }
+            
         }
         else if (!BSM.PreformList[0].ChooseAttack.ismagic)
         {

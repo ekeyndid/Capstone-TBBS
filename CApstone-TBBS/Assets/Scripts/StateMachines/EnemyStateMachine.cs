@@ -65,20 +65,27 @@ public class EnemyStateMachine : MonoBehaviour
                     this.gameObject.tag = "DeadEnemy";
                     BSM.EnemiesInBattle.Remove(this.gameObject);
                     Selector.SetActive(false);
-
-                    for(int i = 0; i < BSM.PreformList.Count; i++)
+                    if (BSM.EnemiesInBattle.Count > 0)
                     {
-                        if(BSM.PreformList[i].AttackersGameObject == this.gameObject)
+                        for (int i = 0; i < BSM.PreformList.Count; i++)
                         {
-                            BSM.PreformList.Remove(BSM.PreformList[i]);
+                            if (BSM.PreformList[i].AttackersGameObject == this.gameObject)
+                            {
+                                BSM.PreformList.Remove(BSM.PreformList[i]);
+                            }
+                            else if (BSM.PreformList[i].AttackersTarget == this.gameObject)
+                            {
+                                BSM.PreformList[i].AttackersTarget = BSM.EnemiesInBattle[Random.Range(0, BSM.EnemiesInBattle.Count)];
+                            }
                         }
+                    }
                         this.gameObject.GetComponent<MeshRenderer>().material.color = new Color32(105, 105, 105, 255);
                         IsAlive = false;
                         // reset enemy buttons
                         BSM.EnemyButtons();
                         // check Alive
                         BSM.currentAction = BattleStateMachine.PreformAction.CHECKALIVE;
-                    }
+                    
                 }
                 break;
         }

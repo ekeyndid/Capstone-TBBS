@@ -45,8 +45,10 @@ public class BattleStateMachine : MonoBehaviour
     public GameObject MagicPanel;
     public GameObject actionbutton;
     public GameObject magicbutton;
+    public GameObject MagicName;
     private List<GameObject> Buttons = new List<GameObject>();
     private List<GameObject> EButtons = new List<GameObject>();
+   
 
 
 
@@ -210,6 +212,8 @@ public class BattleStateMachine : MonoBehaviour
                 
         }
     }
+
+   
 
     public void Input1() // attack button
     {
