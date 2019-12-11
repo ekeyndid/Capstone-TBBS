@@ -11,5 +11,6 @@ public class Slash : BaseAttack
         ManaCost = 0.0f;
         Damage = 10.0f;
         ismagic = false;
+        Type = "Normal";
     }
 }

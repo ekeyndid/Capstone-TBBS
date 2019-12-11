@@ -11,5 +11,6 @@ public class Ice1Spell : BaseAttack
         Damage = 15f;
         ManaCost = 2f;
         ismagic = true;
+        Type = "Magic";
     }
 }

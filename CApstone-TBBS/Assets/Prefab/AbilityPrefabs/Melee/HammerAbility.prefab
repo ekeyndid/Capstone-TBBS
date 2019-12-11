@@ -47,3 +47,5 @@ MonoBehaviour:
   AttackDesc: A Hammer Swing with a large hammer, axe, or mallet.
   Damage: 15
   ManaCost: 0
+  ismagic: 0
+  Type: STR

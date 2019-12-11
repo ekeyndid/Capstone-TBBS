@@ -11,5 +11,6 @@ public Fire1Spell()
         Damage = 20f;
         ManaCost = 4f;
         ismagic = true;
+        Type = "Magic";
     }
 }

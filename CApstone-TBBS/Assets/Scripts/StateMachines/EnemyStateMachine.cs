@@ -110,7 +110,7 @@ public class EnemyStateMachine : MonoBehaviour
         myAttack.AttackersTarget = BSM.ProtagsInBattle[Random.Range(0, BSM.ProtagsInBattle.Count)];
         int rand = Random.Range(0, enemy.MeleeAttacks.Count);
         myAttack.ChooseAttack = enemy.MeleeAttacks[rand];
-        Debug.Log(this.gameObject + " used " + myAttack.ChooseAttack.AttackName + " for " + (myAttack.ChooseAttack.Damage+enemy.currATK) + " dmg!");
+        
 
         BSM.CollectAction(myAttack);
     }
@@ -162,14 +162,16 @@ public class EnemyStateMachine : MonoBehaviour
     void DoDamage()
     {
         float calc_dmg;
+        
         calc_dmg = enemy.currATK + BSM.PreformList[0].ChooseAttack.Damage;
+        Debug.Log(this.gameObject + " used " + BSM.PreformList[0].ChooseAttack.AttackName + " for " + (calc_dmg) + " dmg!");
         ProtagToAttack.GetComponent<ProtagStateMachine>().TakeDamage(calc_dmg);
     }
 
     public void TakeDamage(float DamageA)
     {
         float calc_dmg = DamageA - enemy.currDEF;
-        print(calc_dmg);
+        print("enemy took "+calc_dmg);
         if (calc_dmg < 0) { calc_dmg = 0; };
         enemy.currHP -= calc_dmg;
         if (enemy.currHP <= 0)

@@ -47,3 +47,5 @@ MonoBehaviour:
   AttackDesc: A basic slash with a sword, dagger, or alike weapon.
   Damage: 10
   ManaCost: 0
+  ismagic: 0
+  Type: Normal

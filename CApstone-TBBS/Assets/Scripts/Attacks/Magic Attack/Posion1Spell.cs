@@ -11,5 +11,6 @@ public class Posion1Spell : BaseAttack
         Damage = 5f;
         ManaCost = 5f;
         ismagic = true;
+        Type = "Magic";
     }
 }

@@ -48,3 +48,4 @@ MonoBehaviour:
   Damage: 15
   ManaCost: 2
   ismagic: 1
+  Type: Magic

@@ -10,4 +10,5 @@ public class BaseAttack: MonoBehaviour
     public float Damage;
     public float ManaCost; //if spell
     public bool ismagic;
+    public string Type;
 }

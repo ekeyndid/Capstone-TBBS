@@ -159,7 +159,7 @@ public class ProtagStateMachine : MonoBehaviour
                 while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
                 BSM.EFFECTS.GetComponent<PlayAnims>().Decide(MagicT.text = BSM.PreformList[0].ChooseAttack.AttackName, EnemyToAttack.GetComponent<EnemyStateMachine>().GiveGuiPos());
                 yield return new WaitForSeconds(2f);
-                DoDamage();
+                DoDamage(BSM.PreformList[0].ChooseAttack.Type);
                 BSM.MagicName.gameObject.SetActive(false);
             }
             else
@@ -177,7 +177,7 @@ public class ProtagStateMachine : MonoBehaviour
             while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
             //wait a bit
             yield return new WaitForSeconds(0.5f);
-            DoDamage();
+            DoDamage(BSM.PreformList[0].ChooseAttack.Type);
         }
         //animate the enemy near the hero to attack
        
@@ -218,7 +218,7 @@ public class ProtagStateMachine : MonoBehaviour
     public void TakeDamage(float DamageA)
     {
         float calc_dmg = DamageA - protag.currDEF;
-        print(calc_dmg);
+        print("Took "+calc_dmg);
         if (calc_dmg < 0) { calc_dmg = 0; };
         protag.currHP -= calc_dmg;
         if (protag.currHP <= 0) {
@@ -229,9 +229,25 @@ public class ProtagStateMachine : MonoBehaviour
         
     }
 
-    void DoDamage()
+    void DoDamage(string Type)
     {
-        float calc_dmg = protag.currATK + BSM.PreformList[0].ChooseAttack.Damage;
+         float calc_dmg;
+        if (Type == "Magic")
+        {
+            print("magic");
+            calc_dmg = (protag.intellect * 2) + BSM.PreformList[0].ChooseAttack.Damage;
+        }
+        else if (Type == "STR")
+        {
+            calc_dmg = (protag.stamina * 1.5f) + BSM.PreformList[0].ChooseAttack.Damage;
+        }
+        else if(Type == "Normal")
+        {
+            calc_dmg = protag.currATK + BSM.PreformList[0].ChooseAttack.Damage;
+        }
+        else { calc_dmg = 0; }
+
+        Debug.Log(this.gameObject + " used " + BSM.PreformList[0].ChooseAttack.AttackName + " for " + (calc_dmg) + " Arrox. dmg!");
         EnemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calc_dmg);
 
 

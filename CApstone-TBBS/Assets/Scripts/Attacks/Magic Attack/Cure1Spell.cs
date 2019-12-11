@@ -11,5 +11,6 @@ public class Cure1Spell : BaseAttack
         Damage = -20f;
         ManaCost = 4f;
         ismagic = true;
+        Type = "Magic";
     }
 }
