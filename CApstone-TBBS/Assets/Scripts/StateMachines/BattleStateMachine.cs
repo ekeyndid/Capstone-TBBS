@@ -46,9 +46,12 @@ public class BattleStateMachine : MonoBehaviour
     public GameObject actionbutton;
     public GameObject magicbutton;
     public GameObject MagicName;
+    public GameObject EFFECTS;
+
     private List<GameObject> Buttons = new List<GameObject>();
     private List<GameObject> EButtons = new List<GameObject>();
-   
+    
+
 
 
 

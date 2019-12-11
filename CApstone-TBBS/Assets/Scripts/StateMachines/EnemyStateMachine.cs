@@ -180,4 +180,9 @@ public class EnemyStateMachine : MonoBehaviour
         
 
     }
+
+    public Vector2 GiveGuiPos()
+    {
+        return enemy.GUIPosition;
+    }
 }

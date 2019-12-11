@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2384297430556175001}
   - component: {fileID: -6827911103975022140}
   m_Layer: 0
-  m_Name: Posion1
+  m_Name: Poison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9038166515a3ad2429f26ab1c88ecba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackName: Posion
+  AttackName: Poison
   AttackDesc: Basic Posion Spell which poisons enemy over time
   Damage: 5
   ManaCost: 5

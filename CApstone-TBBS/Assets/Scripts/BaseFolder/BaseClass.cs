@@ -18,5 +18,6 @@ public class BaseClass{
     public float currDEF;
 
     public List<BaseAttack> MeleeAttacks = new List<BaseAttack>();
-
+    public Vector2 GUIPosition;
+    
 }

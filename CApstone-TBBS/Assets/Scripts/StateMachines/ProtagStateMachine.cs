@@ -123,11 +123,11 @@ public class ProtagStateMachine : MonoBehaviour
     void UpgradeProgressBar()
     {
         ProgressBar.color = ProgColor;
-        print(Time.deltaTime);
+       // print(Time.deltaTime);
         float Modifier = protag.agility / 15;
         float Timeo = Time.deltaTime;
         cur_cooldown = cur_cooldown + (Timeo * Modifier);
-        print(cur_cooldown + " of "+ protag.thename);
+        //print(cur_cooldown + " of "+ protag.thename);
         float calc_cooldown = cur_cooldown / max_cooldown;
         ProgressBar.transform.localScale = new Vector3(Mathf.Clamp(calc_cooldown, 0, 1), ProgressBar.transform.localScale.y, ProgressBar.transform.localScale.z);
         if(cur_cooldown >= max_cooldown)
@@ -157,8 +157,8 @@ public class ProtagStateMachine : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 Vector3 EnemyPosition = new Vector3(transform.position.x - 1.5f, transform.position.y, transform.position.z);
                 while (MoveTowardsEnemy(EnemyPosition)) { yield return null; }
-                //wait a bit
-                yield return new WaitForSeconds(0.5f);
+                BSM.EFFECTS.GetComponent<PlayAnims>().Decide(MagicT.text = BSM.PreformList[0].ChooseAttack.AttackName, EnemyToAttack.GetComponent<EnemyStateMachine>().GiveGuiPos());
+                yield return new WaitForSeconds(2f);
                 DoDamage();
                 BSM.MagicName.gameObject.SetActive(false);
             }
@@ -255,5 +255,10 @@ public class ProtagStateMachine : MonoBehaviour
     {
         stats.ProtagHP.text = "HP: " + protag.currHP;
         stats.ProtagMP.text = "MP: " + protag.currMP;
+    }
+
+    public Vector2 GiveGuiPos()
+    {
+        return protag.GUIPosition;
     }
 }
